@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+// eslint-disable-next-line import/no-cycle
 import { Loader } from './Loader';
+
+const PageWrapper = styled.div` 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 const ListBtn = styled.button`
     border: none;
@@ -11,7 +18,18 @@ const ListBtn = styled.button`
     font-weight: 700;
     cursor: pointer;
 `
+const List = styled.ul`
+  list-style-type: none;
+  line-height: 1.5em;
+`
 
+const ListItem = styled.li`
+    font-family: 'Courier New', Courier, monospace;
+  font-size: 1em;
+  font-weight: 300;
+  align-items: center;
+  justify-items: center;
+`
 export const ListBottom = () => {
   const [moviesLow, setMoviesLow] = useState([])
   const [loading, setLoading] = useState(false)
@@ -37,8 +55,7 @@ export const ListBottom = () => {
     setShowMovies(!showMovies)
   }
   return (
-    <div>
-      <h2>11-250</h2>
+    <PageWrapper>
       <ListBtn
         type="button"
         className="btn"
@@ -46,12 +63,12 @@ export const ListBottom = () => {
         {showMovies === true ? 'Hide Movies' : 'Show Movies'}
       </ListBtn>
       {showMovies === true && (
-        <ul>
+        <List>
           {moviesLow.map((movieLow) => (
-            <li key={movieLow.id}>{movieLow.rank} {movieLow.title}</li>
+            <ListItem key={movieLow.id}>{movieLow.rank} {movieLow.title}</ListItem>
           ))}
-        </ul>
+        </List>
       )}
-    </div>
+    </PageWrapper>
   )
 }

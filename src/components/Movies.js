@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Loader } from './Loader';
+// eslint-disable-next-line import/no-cycle
 import { ListBottom } from './ListBottom';
+import { Footer } from './Footer';
 
-const Container = styled.div` 
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  max-width: 100vw;
+const PageContainer = styled.div`
+display: flex;
+flex-direction: column;
+  align-items: center;;
+  justify-content: center;
+  width: 100vw;
   margin: 20px;
+`
+const Container = styled.div` 
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  gap: 20px;
+
+  @media (min-width: 668px){
+    grid-template-columns: repeat(5, 20%);
+    width: 100vw;
+  }
 `
 
 const BodyWrapper = styled.a`
@@ -18,7 +30,7 @@ const BodyWrapper = styled.a`
   align-items: center;
   justify-content: flex-start;
   background-color: lightpink;
-  width: 200px;
+  max-width: 50vw;
   height: 200px;
   text-decoration: none;
   color: black;
@@ -30,7 +42,7 @@ const BodyWrapper = styled.a`
   }
 `
 
-const Rank = styled.h1`
+const Rank = styled.h2`
   font-family: 'Courier New', Courier, monospace;
   font-size: 2em;
   padding-top: 20px;
@@ -45,6 +57,13 @@ const Text = styled.p`
   &::-webkit-scrollbar{
   display: none;
 }
+`
+
+const Bottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 
 export const MoviesList = () => {
@@ -71,7 +90,8 @@ export const MoviesList = () => {
   // const toggleClassCheck = show ? ' active' : '';
 
   return (
-    <>
+    <PageContainer>
+      <a href="https://project-express-api-ru2v7b5sba-lz.a.run.app/">API</a>
       <Rank>IMDB Top 10</Rank>
       <Container>
         {movies.map((movie) => (
@@ -82,8 +102,12 @@ export const MoviesList = () => {
             </Text>
           </BodyWrapper>
         ))}
-        <ListBottom />
       </Container>
-    </>
+      <Bottom>
+        <Rank>11-250</Rank>
+        <ListBottom />
+      </Bottom>
+      <Footer />
+    </PageContainer>
   );
 }

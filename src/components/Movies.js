@@ -72,7 +72,7 @@ export const MoviesList = () => {
 
   return (
     <>
-      <Rank>Top 10</Rank>
+      <Rank>IMDB Top 10</Rank>
       <Container>
         {movies.map((movie) => (
           <BodyWrapper href={movie.link} key={movie}>

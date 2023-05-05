@@ -1,14 +1,21 @@
-/* eslint-disable react/button-has-type */
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { Loader } from './Loader';
+
+const ListBtn = styled.button`
+    border: none;
+    background: none;
+    text-decoration: underline;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2em;
+    font-weight: 700;
+    cursor: pointer;
+`
 
 export const ListBottom = () => {
   const [moviesLow, setMoviesLow] = useState([])
   const [loading, setLoading] = useState(false)
   const [showMovies, setShowMovies] = useState(false);
-  //   const [movieStates, setMovieStates] = useState(
-  //     moviesLow.map(() => false)
-  //   )
 
   useEffect(() => {
     setLoading(true);
@@ -31,12 +38,13 @@ export const ListBottom = () => {
   }
   return (
     <div>
-      <button
+      <h2>11-250</h2>
+      <ListBtn
         type="button"
         className="btn"
         onClick={() => handleClick()}>
         {showMovies === true ? 'Hide Movies' : 'Show Movies'}
-      </button>
+      </ListBtn>
       {showMovies === true && (
         <ul>
           {moviesLow.map((movieLow) => (

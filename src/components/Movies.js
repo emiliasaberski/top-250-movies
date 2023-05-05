@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Loader } from './Loader';
+import { ListBottom } from './ListBottom';
 
 const Container = styled.div` 
   display: flex;
@@ -21,6 +22,7 @@ const BodyWrapper = styled.a`
   height: 200px;
   text-decoration: none;
   color: black;
+  overflow: hidden;
 
   &:hover {
     background-color: black;
@@ -39,11 +41,14 @@ const Text = styled.p`
   font-size: 1em;
   font-weight: 300;
   padding: 10px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar{
+  display: none;
+}
 `
 
 export const MoviesList = () => {
   const [movies, setMovies] = useState([]);
-  const [moviesLow, setMoviesLow] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -52,7 +57,6 @@ export const MoviesList = () => {
       .then((res) => res.json())
       .then((data) => {
         setMovies(data.slice(0, 10));
-        setMoviesLow(data.slice(10, 250))
         setLoading(false);
       })
       .catch((error) => {
@@ -64,6 +68,8 @@ export const MoviesList = () => {
   if (loading) {
     return <Loader />;
   }
+  // const toggleClassCheck = show ? ' active' : '';
+
   return (
     <>
       <Rank>Top 10</Rank>
@@ -71,17 +77,12 @@ export const MoviesList = () => {
         {movies.map((movie) => (
           <BodyWrapper href={movie.link} key={movie}>
             <Rank>{movie.rank}</Rank>
-            <Text> {movie.title} </Text>
+            <Text> {movie.title} <br />
+              {movie.year}
+            </Text>
           </BodyWrapper>
         ))}
-        <div>
-          {moviesLow.map((movieLow) => (
-            <>
-              <p>{movieLow.rank}</p>
-              <p>{movieLow.title}</p>
-            </>
-          ))}
-        </div>
+        <ListBottom />
       </Container>
     </>
   );
